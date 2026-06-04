@@ -239,7 +239,7 @@ class DropdownPopup(QFrame):
         self.content.setObjectName("DropdownContent")
         self.content_layout = QVBoxLayout(self.content)
         self.content_layout.setContentsMargins(5, 5, 5, 5)
-        self.content_layout.setSpacing(4)
+        self.content_layout.setSpacing(0)
         self.content_height = 0
         self.hide()
 
@@ -305,8 +305,8 @@ class AnimatedComboBox(QWidget):
                 border-radius: 6px;
                 color: #f4f4f5;
                 font-weight: 600;
-                min-height: 28px;
-                padding: 4px 10px;
+                min-height: 34px;
+                padding: 7px 10px;
                 text-align: left;
             }
 
@@ -1004,6 +1004,8 @@ class ModernUI(QMainWindow):
         self.text_resposta.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
         response_area = ResponseArea(self.text_resposta)
+        response_area.setMinimumHeight(self.text_resposta.minimumHeight())
+        response_area.setMaximumHeight(self.text_resposta.maximumHeight())
         response_area.setSizePolicy(
             QSizePolicy.Policy.Expanding,
             QSizePolicy.Policy.Expanding,
@@ -1060,7 +1062,7 @@ class ModernUI(QMainWindow):
             Qt.AlignmentFlag.AlignVCenter,
         )
         response_area.set_navigation_widget(self.history_nav_widget)
-        content_layout.addWidget(response_area, 1)
+        content_layout.addWidget(response_area, 12)
 
         self.actions_widget = QWidget()
         self.buttons_layout = QHBoxLayout(self.actions_widget)
@@ -1087,6 +1089,7 @@ class ModernUI(QMainWindow):
         self.label_instrucoes.setObjectName("Hint")
         self.label_instrucoes.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.label_instrucoes.setWordWrap(True)
+        content_layout.addStretch(1)
         content_layout.addWidget(self.label_instrucoes)
 
         return root

@@ -80,40 +80,53 @@
 - [X] Definir versao `0.1.0` nos metadados/scripts de build.
 - [X] Preparar build distribuivel.
 - [X] Criar repositorio remoto.
-- [ ] Publicar release inicial `0.1.0`.
+- [X] Publicar release inicial `0.1.0`.
 
-## Versao 0.1.1 - Polimento Visual
+## Versao 1.1 - Polimento Visual
 
-- [ ] Adicionar animacao (API que vou passar) aos botoes de acao.
-- [ ] Suavizar bordas finas principais.
-- [ ] Adicionar transparencia aos dropdowns.
+- [X] Corrigir distancia dos botoes de acao quando a area de resposta atinge a altura maxima.
+- [X] Remover zonas mortas entre opcoes dos dropdowns.
+- [ ] Corrigir erros ortograficos em todos os textos.
+- [ ] Analisar textos e mensagens pensando em opcoes melhores.
+- [ ] Adicionar botoes de redirecionamento para paginas de API key de cada API.
+- [ ] Adicionar indicador discreto de que o Groq tem uso gratuito.
 - [ ] Revisar suavidade final do fechamento dos dropdowns em ambiente local.
+- [ ] Suavizar bordas finas principais.
 - [ ] Revisar suavidade das bordas finas em ambiente local.
 - [ ] Diminuir tamanho minimo da tela, redimensionando escala e/ou espacamento de componentes.
-- [ ] testar inverter a cor de fundo pela cor da caixa de resposta e vice-versa.
-- [ ] botoes de redirecionamento que levam as paginas de API KEY de cada API,
-- [ ] indicador que o Groq é gratuito?
+- [ ] Diminuir espaçamento/distanciamento maximo, na janela cheia ta tudo muito grande
+- [ ] Testar inverter a cor de fundo pela cor da caixa de resposta e vice-versa.
+- [ ] Adicionar transparencia aos dropdowns.
+- [ ] Adicionar animacao (API que vou passar) aos botoes de acao.
+- [ ] Avaliar migracao do front para TypeScript para melhorar design, elementos e animacoes.
 
-### V0.1.2
+## Versao 1.2 - Modelos e Flexibilidade
 
-- [ ] talvez desativar o hover da caixa resposta, e deixar ele ativo so quando o modelo estiver pensando/carregando, e na v0.2, quando estiver no modo de escrita.
-- [ ] adicionar nova janela, na tela de configurações, uma janela que aparece atraves de um botao em cada API e lista os modelos disponiveis, e o usuario pode ativar/desativar uma quantidade maxima, esses selecionados serão os que aparecem no dropdown de modelos ta tela principal.
-- [ ] na nova janela de modelos, deve ter algum indicador de qualidade/uso, minhas ideias sao: ou o basico, valor de tokens e de contexto; ou simbolos que representariam tags, seriam simbolos pequenos e simples, provavelmente eu procuraria algum pack de icone online pra isso. Cada simbolo representariam uma tag, e cada modelo teria pelo menos dois simbolos, um referente a qualidade de resposta e o outro referente ao custo. Ao colocar o mouse em cima do simbolo, um hover especifico que vou trazer deve ser ativado com a palavra que define aquela tag, tipo "rapido", "burro", "excelente", etc. Esse processo deve ser feito em etapas de incrementação, criando componentes primeiro, aplicando suas funcionalidades, só depois criar e posicionar na janela.
+- [ ] Testar prompt mais flexivel para questoes que nao sejam de multipla escolha.
+- [ ] Talvez desativar o hover da caixa de resposta, deixando ativo so quando o modelo estiver pensando/carregando e, na v0.2, quando estiver no modo de escrita.
+- [ ] Definir formato de configuracao para modelos ativados/desativados por API.
+- [ ] Criar componentes base da janela de modelos na tela de configuracoes.
+- [ ] Listar modelos disponiveis por API em modo somente leitura na janela.
+- [ ] Permitir ativar/desativar modelos com limite maximo de selecionados.
+- [ ] Aplicar modelos selecionados no dropdown de modelos da tela principal.
+- [ ] Adicionar indicadores simples de contexto, custo e qualidade dos modelos.
+- [ ] Evoluir indicadores para icones/tags com tooltip especifico.
 
-## Versao 0.2.0 - Chat Minimalista
+## Versao 2.0 - Chat Minimalista
 
+- [ ] Definir estrutura interna de conversa por pagina do historico.
 - [ ] Transformar a caixa de resposta em area editavel quando o usuario clicar/digitar.
+- [ ] Permitir chat apenas na ultima pagina/questao do historico.
 - [ ] Trocar `Analisar F2` para `Enviar` quando houver texto manual escrito.
 - [ ] Enviar mensagem manual com `Enter`.
-- [ ] Exibir a pergunta do usuario no topo da conversa.
-- [ ] Exibir resposta do modelo logo abaixo da pergunta.
-- [ ] Prefixar mensagens com `>` para indicar inicio de mensagem.
-- [ ] Diferenciar visualmente mensagem do usuario com cor discreta.
 - [ ] Usar prompt de chat simples, sem o prompt rigido de questao.
 - [ ] Orientar o modelo a responder direto, sem bajulacao, sem inventar e avisando incerteza.
-- [ ] Permitir chat apenas na ultima pagina/questao do historico.
-- [ ] Manter paginas antigas do historico como leitura/copia, sem envio de novas mensagens.
+- [ ] Exibir a pergunta do usuario no topo da conversa.
+- [ ] Exibir resposta do modelo logo abaixo da pergunta.
+- [ ] Diferenciar visualmente mensagem do usuario com cor discreta.
+- [ ] Prefixar mensagens com `>` para indicar inicio de mensagem.
 - [ ] Ao criar nova questao, iniciar contexto novo e independente para o modelo.
+- [ ] Manter paginas antigas do historico como leitura/copia, sem envio de novas mensagens.
 - [ ] Preservar conversa da pagina anterior apenas como texto navegavel no historico.
 
 ## Planos Futuros - Linux
