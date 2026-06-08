@@ -35,6 +35,8 @@ DEFAULT_CONFIG = {
             "llama-3.3-70b-versatile",
             "moonshotai/kimi-k2-instruct-0905",
             "openai/gpt-oss-120b",
+            "groq/compound",
+            "groq/compound-mini",
         ]
     },
 }
@@ -49,11 +51,11 @@ IMAGE_PROMPT = (
 
 
 TEXT_PROMPT_TEMPLATE = (
-    "Analise o seguinte texto de uma questao de multipla escolha:\n\n"
+    "Analise o seguinte texto de uma questao:\n\n"
     "{texto}\n\n"
-    "Identifique o enunciado e as alternativas, e diga qual e a alternativa correta. "
-    "Regra prioritaria: nao retorne motivo, alternativas (fora a correta), ou enunciado. "
-    "Seja direto e explique brevemente o motivo."
+    "Identifique e diga qual e a alternativa correta. "
+    "Regra prioritaria: nao retorne enunciado ou alternativas (fora a correta). "
+    "Seja direto e faça uma explicação breve [até 30 palavras] do motivo."
 )
 
 
