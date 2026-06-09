@@ -1,9 +1,8 @@
 # PRAQ
 
-Pra Responder Atividade Quieto
+## Pra Responder Atividade Quieto
 
 É uma aplicacao desktop para auxiliar respostas de questoes de multipla escolha com modelos de IA. A interface foi desenhada para uso rapido: selecionar API/modelo, enviar texto selecionado por atalho e navegar por um historico leve da sessao.
-
 
 ## Recursos
 
@@ -17,8 +16,8 @@ Pra Responder Atividade Quieto
 ## Requisitos
 
 - Windows 10 ou superior.
+- Chave API Gemini e/ou Groq (free).
 - Python 3.12 recomendado para rodar pelo codigo-fonte.
-- Chave API Gemini e/ou Groq.
 
 ## Rodar pelo codigo-fonte
 
