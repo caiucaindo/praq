@@ -40,7 +40,7 @@ $OutputExe = Join-Path $ProjectRoot "dist\PRAQ.exe"
 
 Set-Location $ProjectRoot
 
-Write-Host "PRAQ build 0.1.0" -ForegroundColor Magenta
+Write-Host "PRAQ build 2.0.0" -ForegroundColor Magenta
 Write-Host "Projeto: $ProjectRoot"
 
 if (-not (Test-Path $VenvPython)) {

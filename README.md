@@ -30,6 +30,26 @@ py -3 -m venv .venv
 
 Tambem e possivel usar `PRAQ.bat` ou `PRAQ.vbs` depois que o ambiente virtual estiver configurado.
 
+### Nova interface web em desenvolvimento
+
+A interface React/TypeScript e executada em WebView2 por um entrypoint separado enquanto a versao PySide6 permanece disponivel:
+
+```powershell
+Set-Location frontend
+npm ci
+npm run build
+Set-Location ..
+.\.venv\Scripts\python.exe PRAQ_web.py
+```
+
+Para gerar o executavel:
+
+```powershell
+.\scripts\build-web.ps1
+```
+
+O resultado e criado em `dist\PRAQ.exe`.
+
 ## Configurar chaves
 
 Abra a tela de configuracoes pelo icone de engrenagem e informe as chaves de API. O aplicativo nao grava chaves no `config.json`; elas sao salvas localmente com protecao do usuario do Windows.

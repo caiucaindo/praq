@@ -6,3 +6,4 @@ Pillow
 rich
 PySide6
 pyperclip
+pywebview==6.2.1

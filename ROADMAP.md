@@ -82,28 +82,102 @@
 - [X] Criar repositorio remoto.
 - [X] Publicar release inicial `0.1.0`.
 
-## Versao 1.1 - Polimento Visual
+## Versao 1.1 - Nova Interface Web e Polimento Visual
 
-- [X] Corrigir distancia dos botoes de acao quando a area de resposta atinge a altura maxima.
-- [X] Remover zonas mortas entre opcoes dos dropdowns.
-- [ ] Corrigir erros ortograficos em todos os textos.
-- [ ] Analisar textos e mensagens pensando em opcoes melhores.
-- [ ] Adicionar botoes de redirecionamento para paginas de API key de cada API.
-- [ ] Adicionar indicador discreto de que o Groq tem uso gratuito.
-- [ ] Revisar suavidade final do fechamento dos dropdowns em ambiente local.
-- [ ] Suavizar bordas finas principais.
-- [ ] Revisar suavidade das bordas finas em ambiente local.
-- [ ] Diminuir tamanho minimo da tela, redimensionando escala e/ou espacamento de componentes.
-- [ ] Diminuir espaçamento/distanciamento maximo, na janela cheia ta tudo muito grande
-- [ ] Testar inverter a cor de fundo pela cor da caixa de resposta e vice-versa.
-- [ ] Adicionar transparencia aos dropdowns.
-- [ ] Adicionar animacao (API que vou passar) aos botoes de acao.
-- [ ] Avaliar migracao do front para TypeScript para melhorar design, elementos e animacoes.
+### Decisao Tecnica e Linha de Base
+
+- [X] Corrigir distancia dos botoes de acao quando a area de resposta atinge a altura maxima na interface atual.
+- [X] Remover zonas mortas entre opcoes dos dropdowns na interface atual.
+- [X] Registrar a linha de base local da interface PySide6: abertura em 4,62 s, 131,1 MB em uso e executavel de 66,1 MB.
+- [ ] Medir o tempo ate a primeira resposta com APIs reais antes da troca definitiva.
+- [X] Adotar React, TypeScript e Vite para a interface, embarcados em `pywebview` com WebView2.
+- [X] Manter Python como backend nativo para DPAPI, hotkeys, clipboard, screenshots e clientes Gemini/Groq.
+- [X] Manter a interface PySide6 utilizavel ate a nova interface atingir paridade funcional e passar pelos criterios de aceite.
+
+### Refatoracao do Backend Antes da Troca de Interface
+
+- [X] Extrair de `MainWindow` um servico de aplicacao independente de UI para configuracao, provider/modelo ativo, processamento, historico e captura.
+- [ ] Remover `QThread` e `Signal` do backend, substituindo-os por concorrencia Python com estado protegido, eventos e encerramento limitado por timeout.
+- [X] Definir uma unica politica para requisicoes simultaneas, impedindo duplicidade por hotkeys e resultados fora de ordem.
+- [X] Associar cada operacao a um identificador e a um snapshot de provider/modelo para que trocas na interface nao alterem requisicoes em andamento.
+- [X] Definir uma bridge minima e tipada entre TypeScript e Python para comandos, estados, resultados e erros.
+- [X] Garantir que chaves descriptografadas e imagens capturadas nunca sejam retornadas ao frontend, gravadas em logs ou armazenadas no navegador.
+- [X] Preservar o formato atual de `%APPDATA%\PRAQ\secrets.json` para manter compatibilidade com as chaves DPAPI existentes.
+
+### Fundacao Visual
+
+- [ ] Criar tokens centralizados de cor, tipografia, espacamento, borda, raio, foco, elevacao e movimento.
+- [X] Aplicar app shell escuro e utilitario baseado em zinc-950/zinc-900 com destaque indigo, contraste forte e densidade moderada.
+- [X] Criar header compacto com identidade PRAQ, status discreto e acesso claro a configuracoes.
+- [X] Substituir a titlebar do Windows por uma barra integrada com arraste, resize pelas bordas e maximizacao limitada a area de trabalho.
+- [X] Usar uma area de trabalho ampla, sem cards aninhados, sombras pesadas, gradientes decorativos ou espacos excessivos em fullscreen.
+- [ ] Criar componentes reutilizaveis para botoes, selects, campos secretos, status, tooltips, dialogs, toasts e atalhos.
+- [ ] Usar icones consistentes e alvos interativos de pelo menos 40 x 40 px, preservando os assets finais de logo e icone.
+
+### Paridade Funcional Obrigatoria
+
+- [ ] Recriar os seletores de API e modelo com popup moderno, selecao clara, fechamento suave e suporte completo a mouse e teclado.
+- [X] Recriar a area de resposta somente leitura, copiavel, com scroll interno, largura/altura controladas e estados de hover, foco e processamento.
+- [X] Preservar Groq como padrao, texto via F2 e ocultar sem deixar espacos mortos as acoes F8/F9 indisponiveis no Groq.
+- [X] Preservar Gemini para texto, print unico e print com scroll pelas acoes visuais e hotkeys F2/F8/F9.
+- [X] Preservar historico temporario de ate 10 respostas, navegacao anterior/proxima, exclusao atual e controles corretamente desabilitados nos limites.
+- [X] Recriar a tela de configuracoes com navegacao de ida/volta, campos mascarados, validacao, estados pronto/invalido e feedback entre formulario e acoes.
+- [X] Confirmar internamente limpeza e substituicao de chaves sem usar dialogs genericos do Windows.
+- [X] Preservar salvamento e limpeza de chaves por DPAPI e manter o aviso de protecao local no rodape.
+- [X] Preservar responsividade, concentracao do conteudo em telas grandes, abertura em tamanho minimo e layout sem overflow externo.
+- [X] Equalizar as acoes Gemini e expandir a acao Groq junto com a area de resposta.
+
+### Experiencia, Acessibilidade e Movimento
+
+- [ ] Modelar estados explicitos de inicializacao, sem chave, carregamento de modelos, captura, envio, analise, sucesso, resposta vazia, erro recuperavel e erro fatal.
+- [X] Manter a resposta anterior visivel durante novo processamento e apresentar progresso sem deslocamentos abruptos de layout.
+- [ ] Exibir erros com causa, impacto e uma acao recuperavel como configurar chave, tentar novamente ou trocar modelo.
+- [X] Separar o nome das acoes de seus atalhos, exibindo F2/F8/F9 em badges discretos.
+- [X] Implementar navegacao completa por teclado, ordem de tab previsivel, foco visivel e textos acessiveis para controles com icone.
+- [ ] Nao depender apenas de cor para status e respeitar contraste, escala de texto do Windows e `prefers-reduced-motion`.
+- [X] Aplicar transicoes funcionais de 100-220 ms em telas, status, selects e botoes, sem animacoes que atrasem a operacao.
+- [ ] Integrar a animacao de botoes que sera fornecida, adaptando-a ao tema e desativando-a com movimento reduzido.
+
+### Polimento de Conteudo e Layout
+
+- [ ] Corrigir erros ortograficos e revisar todos os textos, labels, tooltips, mensagens e chamadas para acao.
+- [X] Adicionar links seguros para as paginas oficiais de criacao das chaves Gemini e Groq.
+- [ ] Adicionar indicador discreto de disponibilidade gratuita do Groq sem competir com a acao principal.
+- [X] Definir o tamanho minimo em 640 x 598 mantendo legibilidade, scroll interno e controles acessiveis.
+- [X] Limitar largura e espacamentos em telas grandes para evitar que a interface fique dispersa.
+- [ ] Comparar fundo principal e superficie da resposta nas duas combinacoes propostas e manter a de melhor hierarquia e contraste.
+- [ ] Avaliar transparencia leve nos dropdowns somente se nao prejudicar contraste, leitura ou desempenho.
+- [ ] Suavizar bordas finas e validar o resultado no WebView2 em diferentes escalas de DPI.
+
+### Performance, Seguranca e Distribuicao
+
+- [X] Carregar apenas o bundle local de producao do Vite, com CSP restritiva, origem validada, navegacao externa bloqueada e DevTools desabilitado no build final.
+- [ ] Exigir o runtime WebView2 (`edgechromium`) e apresentar recuperacao clara se ele nao estiver disponivel, sem fallback para MSHTML.
+- [ ] Comparar `onefile` e `onedir` e adotar o formato com melhor abertura e menor incidencia de bloqueio por antivirus; priorizar instalador unico com app `onedir` interno.
+- [X] Criar build web separado que compila o frontend antes do PyInstaller e impede a inclusao acidental de PySide6/PyQt, sem substituir o build estavel.
+- [X] Preservar `config.json`, assets, metadados de versao e dados de `%APPDATA%\PRAQ` no executavel web.
+- [ ] Adicionar logs locais sem segredos e garantir que hotkeys, threads e processos sejam encerrados mesmo durante requisicoes lentas.
+- [ ] Remover PySide6, `ui.py` e o empacotamento Qt somente depois da aprovacao da nova interface e da paridade completa.
+
+### Validacao e Criterios de Aceite
+
+- [X] Adicionar testes unitarios para configuracao, estado, chaves e limite do historico e manter typecheck no build Vite.
+- [X] Gerar `dist\PRAQ-Web.exe` e confirmar abertura responsiva do WebView2 sem remover `dist\PRAQ.exe`.
+- [ ] Validar build limpo no Windows 10 e 11 sem Python ou Node instalados e com usuario sem privilegios administrativos.
+- [ ] Testar F2/F8/F9, repeticao rapida, troca de provider/modelo durante requisicao, ausencia de internet, rate limit e fechamento durante processamento.
+- [ ] Testar clipboard de texto e outros formatos, multiplos monitores e escalas de DPI de 100%, 125%, 150% e 200%.
+- [ ] Validar Gemini e Groq com chave ausente, valida, invalida, arquivo DPAPI corrompido e chave criada pela versao anterior.
+- [ ] Garantir funcionamento sem mouse, foco previsivel, status anunciaveis e animacoes reduzidas quando solicitado pelo sistema.
+- [X] Garantir ausencia de overflow externo em 640 x 598; apenas a resposta e configuracoes podem rolar internamente.
+- [ ] Confirmar historico de no maximo 10 itens, estados corretos dos controles e nenhuma regressao dos requisitos de frontend ja concluidos.
+- [X] Comparar o prototipo com a linha de base: abertura em 3,43 s, 139,4 MB em uso e executavel de 32,8 MB; validar APIs reais antes da decisao final.
+- [ ] Realizar smoke test final do executavel/instalador e aprovar visualmente a nova interface antes de remover a implementacao PySide6.
 
 ## Versao 1.2 - Modelos e Flexibilidade
 
 - [ ] Testar prompt mais flexivel para questoes que nao sejam de multipla escolha.
 - [ ] Talvez desativar o hover da caixa de resposta, deixando ativo so quando o modelo estiver pensando/carregando e, na v0.2, quando estiver no modo de escrita.
+- [ ] Adicionar API Cerebras Inference
 - [ ] Definir formato de configuracao para modelos ativados/desativados por API.
 - [ ] Criar componentes base da janela de modelos na tela de configuracoes.
 - [ ] Listar modelos disponiveis por API em modo somente leitura na janela.
